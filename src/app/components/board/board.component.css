@@ -1,0 +1,18 @@
+table td {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #000;
+  background-color: cornflowerblue;
+}
+
+.selected {
+  background-color: darkorange;
+}
+
+.won {
+  background-color: forestgreen;
+}
+
+.lost {
+  background-color: darkred;
+}
