@@ -10,4 +10,8 @@ export class HeaderComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {}
+
+  onClick() {
+    console.log(this.gameService.getRandomCell());
+  }
 }

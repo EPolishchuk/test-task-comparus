@@ -1,8 +1,15 @@
 <div class="container">
   <table>
     <tbody>
-      <tr>
-        <td></td>
+      <tr *ngFor="let cells of rows; let i = index">
+        <td
+          *ngFor="let cell of cells; let j = index"
+          [ngClass]="{ selected: rows[i][j] !== 0 ? true : false }"
+          (click)="cellClick(i, j)"
+          class="cell"
+        >
+          {{ i + " " + j }}
+        </td>
       </tr>
     </tbody>
   </table>
