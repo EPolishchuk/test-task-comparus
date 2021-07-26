@@ -4,7 +4,11 @@
       <tr *ngFor="let cells of rows; let i = index">
         <td
           *ngFor="let cell of cells; let j = index"
-          [ngClass]="{ selected: rows[i][j] !== 0 ? true : false }"
+          [ngClass]="{
+            selected: rows[i][j] === 5 ? true : false,
+            lost: rows[i][j] === 3 ? true : false,
+            won: rows[i][j] === 1 ? true : false
+          }"
           (click)="cellClick(i, j)"
           class="cell"
         >

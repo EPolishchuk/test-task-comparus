@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Cell, Score } from '../Cell';
 
 const SIZE = 10;
 
@@ -6,15 +8,30 @@ const SIZE = 10;
   providedIn: 'root',
 })
 export class GameService {
+  score: Score = { user: 0, ai: 0 };
   gameBoardSize = SIZE;
+  currentCell: Cell = { row: NaN, column: NaN };
+  cellChange: Subject<Cell> = new Subject<Cell>();
 
-  constructor() {}
+  constructor() {
+    this.cellChange.subscribe((value) => {
+      this.currentCell = value;
+    });
+  }
 
-  getRandomCell(): object {
+  addPointToUser() {
+    if (this.score.user < 10 && this.score.ai < 10) ++this.score.user;
+  }
+
+  addPointToAi() {
+    if (this.score.user < 10 && this.score.ai < 10) ++this.score.ai;
+  }
+
+  getRandomCell(): void {
     let row = this.getRandomIntInclusive(SIZE - SIZE, SIZE - 1);
     let column = this.getRandomIntInclusive(SIZE - SIZE, SIZE - 1);
 
-    return { row: row, column: column };
+    this.cellChange.next({ row: row, column: column });
   }
 
   getRandomIntInclusive(min: number, max: number) {
