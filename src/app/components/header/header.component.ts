@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
+import { Score } from 'src/app/Cell';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +8,23 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  point: number = 0;
-  constructor(private gameService: GameService) {}
+  gameTimer: null | ReturnType<typeof setTimeout> = null;
+
+  constructor(private gameService: GameService) {
+    this.gameService.scoreChange.subscribe((score: Score) => {
+      if ((score.user >= 10 || score.ai >= 10) && this.gameTimer) {
+        clearInterval(this.gameTimer);
+      }
+    });
+  }
 
   ngOnInit(): void {}
 
   onClick() {
-    this.gameService.getRandomCell();
-    for (let i = 1; i <= 10; i++) {
-      setTimeout(() => this.gameService.getRandomCell(), i * 500);
-      this.point++;
-    }
+    this.gameTimer = setInterval(() => this.gameService.getRandomCell(), 1000);
+  }
+
+  start(): void {
+    this.gameTimer = setInterval(() => this.gameService.getRandomCell(), 1000);
   }
 }
