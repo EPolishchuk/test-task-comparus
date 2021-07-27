@@ -1,8 +1,17 @@
 <div class="container">
-  <div class="item">
-    <input type="text" name="time" placeholder="enter interval in ms" /> ms
-  </div>
-  <div class="item">
-    <input type="submit" value="Start!" (click)="onClick()" />
-  </div>
+  <form [formGroup]="delayOption">
+    <div class="item">
+      <input
+        type="text"
+        name="time"
+        placeholder="enter interval in ms"
+        formControlName="delay"
+        [ngClass]="delay?.touched && delay?.invalid ? 'invalid' : ''"
+      />
+      ms
+    </div>
+    <div class="item">
+      <input type="submit" value="Start!" (click)="onClick()" />
+    </div>
+  </form>
 </div>

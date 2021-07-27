@@ -1,5 +1,38 @@
 .container {
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  border: 1px solid steelblue;
+  padding-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  padding: 20px 0 0;
+}
+
+input[type="text"] {
+  height: 30px;
+  padding: 10px;
+  outline: none;
+  border: 1px solid skyblue;
+  border-radius: 6px;
+}
+
+input[type="submit"] {
+  display: block;
+  height: 30px;
+  width: 100px;
+  outline: none;
+  border: 1px solid skyblue;
+  border-radius: 6px;
+  background-color: skyblue;
+}
+
+input[type="text"].invalid {
+  border: 1px solid crimson;
 }

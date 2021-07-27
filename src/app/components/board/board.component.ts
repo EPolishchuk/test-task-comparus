@@ -8,6 +8,8 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit {
+  message: string = '';
+
   rows: number[][] = Array(this.gameService.gameBoardSize)
     .fill(0)
     .map(() => Array(10).fill(0));
@@ -21,6 +23,10 @@ export class BoardComponent implements OnInit {
           this.gameService.addPointToAi();
         }
       }, 1000);
+    });
+
+    this.gameService.currentMessage.subscribe((message) => {
+      if (message === 'reset') this.reset();
     });
   }
 

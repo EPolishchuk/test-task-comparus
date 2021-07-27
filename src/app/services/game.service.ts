@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Cell, Score } from '../Cell';
 
 const SIZE = 10;
@@ -9,11 +9,16 @@ const SIZE = 10;
 })
 export class GameService {
   score: Score = { user: 0, ai: 0 };
+
   gameBoardSize = SIZE;
+
   currentCell: Cell = { row: NaN, column: NaN };
   cellChange: Subject<Cell> = new Subject<Cell>();
   scoreChange: Subject<Score> = new Subject<Score>();
   cellList: Cell[] = [];
+
+  private messageSource = new BehaviorSubject('default message');
+  currentMessage = this.messageSource.asObservable();
 
   constructor() {
     this.cellChange.subscribe((value) => {
@@ -23,6 +28,15 @@ export class GameService {
     this.scoreChange.subscribe((value) => {
       this.score = value;
     });
+  }
+
+  changeMessage(message: string) {
+    if (message === 'reset') {
+      this.score = { user: 0, ai: 0 };
+      this.currentCell = { row: NaN, column: NaN };
+      this.cellList = [];
+    }
+    this.messageSource.next(message);
   }
 
   addPointToUser() {
