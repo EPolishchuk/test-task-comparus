@@ -1,5 +1,14 @@
 <div class="container">
-  <table>
+  <div class="notification play-again" *ngIf="userWins || aiWins">
+    <div class="arrow"></div>
+    <p>Click "Start" to play again.</p>
+  </div>
+  <div class="notification game-over" *ngIf="userWins || aiWins">
+    <p>Time's up!</p>
+    <p *ngIf="userWins">You've won</p>
+    <p *ngIf="aiWins">AI beat you</p>
+  </div>
+  <table [ngClass]="{ result: userWins || aiWins }">
     <tbody>
       <tr *ngFor="let cells of rows; let i = index">
         <td

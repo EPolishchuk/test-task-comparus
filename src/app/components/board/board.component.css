@@ -1,3 +1,80 @@
+.container {
+  position: relative;
+}
+
+.result {
+  opacity: 0.5;
+}
+
+.notification {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  width: 250px;
+  height: 75px;
+  border: 1px solid darkcyan;
+  box-shadow: 12px 12px 2px 1px rgba(52, 172, 241, 0.5);
+}
+
+.play-again {
+  top: 10%;
+  width: 200px;
+  font-size: 13px;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  color: #fff;
+  background-color: dodgerblue;
+  opacity: 0.8;
+}
+
+.game-over {
+  top: 50%;
+  background-color: darkorange;
+}
+
+.arrow {
+  width: 2vmin;
+  height: 2vmin;
+  box-sizing: border-box;
+  position: absolute;
+  top: 20%;
+  left: 44%;
+  transform: rotate(-45deg);
+}
+
+.arrow::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-width: 0.8vmin 0.8vmin 0 0;
+  border-style: solid;
+  border-color: #fafafa;
+  transition: 0.2s ease;
+  display: block;
+  transform-origin: 100% 0;
+}
+
+.arrow::after {
+  content: "";
+  float: left;
+  position: relative;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  border-width: 0 0.8vmin 0 0;
+  border-style: solid;
+  border-color: #fafafa;
+  transform-origin: 100% 0;
+  transition: 0.2s ease;
+}
+
 table {
   margin: 0 auto;
 }

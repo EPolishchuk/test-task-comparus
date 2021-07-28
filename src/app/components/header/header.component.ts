@@ -13,7 +13,10 @@ export class HeaderComponent implements OnInit {
   gameTimer: null | ReturnType<typeof setTimeout> = null;
 
   delayOption: FormGroup = new FormGroup({
-    delay: new FormControl('', [Validators.required]),
+    delay: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]*$'),
+    ]),
   });
 
   get delay() {
@@ -36,6 +39,9 @@ export class HeaderComponent implements OnInit {
 
   onClick(): void {
     if (this.delayOption.valid) {
+      if (this.delay) {
+        this.gameService.changeMessage('delay', { delay: this.delay.value });
+      }
       this.gameService.changeMessage('reset');
       if (this.gameTimer) clearInterval(this.gameTimer);
 

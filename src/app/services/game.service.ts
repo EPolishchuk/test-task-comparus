@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { Cell, Score } from '../Cell';
+import { Cell, Score, Delay } from '../Cell';
 
 const SIZE = 10;
 
@@ -9,6 +9,7 @@ const SIZE = 10;
 })
 export class GameService {
   score: Score = { user: 0, ai: 0 };
+  delay: number = 1000;
 
   gameBoardSize = SIZE;
 
@@ -30,11 +31,13 @@ export class GameService {
     });
   }
 
-  changeMessage(message: string) {
+  changeMessage(message: string, payload?: Delay) {
     if (message === 'reset') {
       this.score = { user: 0, ai: 0 };
       this.currentCell = { row: NaN, column: NaN };
       this.cellList = [];
+    } else if (message === 'delay' && payload) {
+      this.delay = payload.delay;
     }
     this.messageSource.next(message);
   }

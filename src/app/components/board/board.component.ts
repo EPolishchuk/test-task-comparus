@@ -9,12 +9,19 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class BoardComponent implements OnInit {
   message: string = '';
+  userWins: boolean = false;
+  aiWins: boolean = false;
+  delay: number = 1000;
 
   rows: number[][] = Array(this.gameService.gameBoardSize)
     .fill(0)
     .map(() => Array(10).fill(0));
 
   constructor(private gameService: GameService) {
+    this.gameService.currentMessage.subscribe((message) => {
+      if (message === 'delay') this.delay = this.gameService.delay;
+    });
+
     this.gameService.cellChange.subscribe((cell: Cell) => {
       this.rows[cell.row][cell.column] = 5;
       setTimeout(() => {
@@ -22,11 +29,19 @@ export class BoardComponent implements OnInit {
           this.rows[cell.row][cell.column] = 3;
           this.gameService.addPointToAi();
         }
-      }, 1000);
+      }, this.delay);
     });
 
     this.gameService.currentMessage.subscribe((message) => {
       if (message === 'reset') this.reset();
+    });
+
+    this.gameService.scoreChange.subscribe((score) => {
+      if (score.ai === 10) {
+        this.aiWins = true;
+      } else if (score.user === 10) {
+        this.userWins = true;
+      }
     });
   }
 
@@ -43,5 +58,8 @@ export class BoardComponent implements OnInit {
     this.rows = Array(this.gameService.gameBoardSize)
       .fill(0)
       .map(() => Array(10).fill(0));
+
+    this.userWins = false;
+    this.aiWins = false;
   }
 }
